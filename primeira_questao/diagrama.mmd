@@ -1,0 +1,39 @@
+erDiagram
+	direction TB
+	BENCHMARK {
+		int id PK ""  
+		string name  ""  
+	}
+
+	CONTROL {
+		int id PK ""  
+		int benchmark_id FK ""  
+		string name  ""  
+		string description  ""  
+		string current_state  ""  
+	}
+
+	ACCOUNT_BENCHMARK {
+		int account_id FK ""  
+		int benchmark_id FK ""  
+	}
+
+	ACCOUNT {
+		int id PK ""  
+		string name  ""  
+	}
+
+	STATE_HISTORY {
+		int id PK ""  
+		int account_id FK ""  
+		int control_id FK ""  
+		string state  ""  
+		datetime timestamp  ""  
+	}
+
+	BENCHMARK||--o{CONTROL:"contem"
+	BENCHMARK||--o{ACCOUNT_BENCHMARK:"possui"
+	ACCOUNT||--o{ACCOUNT_BENCHMARK:"se relaciona"
+	ACCOUNT||--o{STATE_HISTORY:"gera"
+	CONTROL||--o{STATE_HISTORY:"tem"
+
