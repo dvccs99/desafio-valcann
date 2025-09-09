@@ -16,6 +16,5 @@ dev = [
 ]
 
 [tool.taskipy.tasks]
-run = 'fastapi dev segunda_questao/app/app.py'
+run = 'fastapi dev segunda_questao/src/main.py'
 test = 'pytest -s -x --cov=segunda_questao -vv'
-post_test = 'coverage html'
