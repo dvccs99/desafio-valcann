@@ -1,9 +1,8 @@
 import json
-from pathlib import Path
 from typing import List, Optional
 from segunda_questao.src.models.user import User
 
-DATA_FILE = Path(__file__).parent.parent.parent / "mock-users.json"
+DATA_FILE = "segunda_questao/mock-users.json"
 
 
 def load_users() -> List[User]:

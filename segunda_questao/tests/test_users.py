@@ -67,3 +67,34 @@ def test_get_user_by_id_not_found():
     assert response.status_code == 404
     data = response.json()
     assert data["detail"] == "User not found"
+
+
+# ---------- /users?page=x ----------
+def test_invalid_page_zero():
+    response = client.get("/users?page=0")
+    assert response.status_code == 422
+
+
+def test_invalid_page_negative():
+    response = client.get("/users?page=-1")
+    assert response.status_code == 422
+
+
+def test_invalid_page_size_zero():
+    response = client.get("/users?page_size=0")
+    assert response.status_code == 422
+
+
+def test_invalid_page_size_too_large():
+    response = client.get("/users?page_size=100")
+    assert response.status_code == 422
+
+
+def test_valid_pagination_request():
+    response = client.get("/users?page=1&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["pagination"]["page"] == 1
+    assert data["pagination"]["page_size"] == 5
+    assert "data" in data
+    assert isinstance(data["data"], list)

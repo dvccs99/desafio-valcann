@@ -17,12 +17,12 @@ def list_users(
     Retorna a lista de usuários com filtros, busca e paginação.
     """
     users = load_users()
-
     if q:
+        q_lower = q.lower()
         users = [
             u
             for u in users
-            if q.lower() in u.name.lower() or q.lower() in u.email.lower()
+            if q_lower in u.name.lower() or q_lower in u.email.lower()
         ]
     if role:
         users = [u for u in users if u.role == role]

@@ -9,23 +9,17 @@ APP_NAME = "Valcann Users API"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
     logger.info(f"Starting {APP_NAME}")
     yield
-    # Shutdown
     logger.info(f"Shutting down {APP_NAME}")
 
 
 app = FastAPI(title=APP_NAME, lifespan=lifespan)
-
-# Configurar CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # em produção, restrinja!
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Rotas
 app.include_router(users_controllers.router)
